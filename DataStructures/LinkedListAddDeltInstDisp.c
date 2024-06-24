@@ -11,16 +11,25 @@ struct node * p;
 int ctr=0;
 struct node * head;
 
+void GoToEnd();
+void add(int x);
+void delt(int y);
+void insrt(int in , int val);
+void display();
+void RecursiveDisp(struct node *p, int direction);
+int SearchData(struct node *p , int val , int i);
+
+
 int main()
 {
-    int i,j,k;
+    int i,j,k,src=0;
     char key;
 
     while(key != 27)
     {
 
 
-        printf("\n1 - Add , 2 - Delete , 3 - Insert , 4 - Display the list , esc - to stop: ");
+        printf("\n1 - Add , 2 - Delete , 3 - Insert , 4 - Display the list , 5 - Search ");
         scanf("%d",&k);
 
         switch(k)
@@ -44,6 +53,13 @@ int main()
             break;
         case 4:
             display();
+            break;
+        case 5:
+            printf("\nEnter the data to be searched: ");
+            scanf("%d", &j);
+            i = SearchData(head,j,src);
+            printf("\nThe data is at index %d",i);
+
 
         }
 
@@ -89,7 +105,7 @@ void delt(int y)
     struct node * temp;
     p = head;
 
-    while(i < y)
+    while(i < y-1)
     {
         p = p->next;
         i++;
@@ -110,7 +126,7 @@ void insrt(int in , int val)
 
     p = head;
 
-    while(i < in)
+    while(i < in-1)
     {
         p = p->next;
         i++;
@@ -124,23 +140,51 @@ void insrt(int in , int val)
 
 void display()
 {
-    int i=0;
-    struct node * temp;
-    p = head;
+    printf("\nPrinting forward : ");
+    RecursiveDisp(head,0);
 
-    while(p->next != NULL)
-    {
-        printf("\nData at index %d, is %d", i , p->data);
-        p=p->next;
-        i++;
-    }
-
-    printf("\nData at index %d , is %d", i++ , p->data);
-
-
-
-
-
-
+    printf("\nPrinting Reverse: ");
+    RecursiveDisp(head,1);
 
 }
+
+void RecursiveDisp(struct node *p, int direction)
+{
+    if(direction == 0) // forward
+    {
+        printf(" %d",p->data);
+        if(p->next!= NULL)
+        {
+            RecursiveDisp(p->next,direction);
+        }
+    }
+    else
+    {
+
+        if(p->next!=NULL)
+        {
+            RecursiveDisp(p->next,direction);
+        }
+
+        printf(" %d",p->data);
+
+    }
+
+}
+
+int SearchData(struct node *p , int val , int i)
+{
+    if(p->data != val)
+    {
+        p=p->next;
+        SearchData(p, val , i++);
+    }
+
+    else
+    {
+        printf("Condition executed");
+        return i;
+    }
+
+}
+
