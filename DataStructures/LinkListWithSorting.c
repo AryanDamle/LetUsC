@@ -24,23 +24,28 @@ int SearchData(struct node *p , int val , int i);
 
 int main()
 {
-    int i,j,k,src=0;
-    char key;
+    int i,j,k,src=0,x;
+    FILE *f;
 
-    while(key != 27)
+    f = fopen("C:\\Users\\Aryan\\Sync\\LetUsC\\FileIO\\io.txt", "r");
+
+    while(fscanf(f ,"%d", &x) != EOF)
+    {
+        add(x);
+    }
+
+    printf("The list is : ");
+    display(0);
+
+    while(k != 0)
     {
 
 
-        printf("\n1 - Add \n2 - Delete \n3 - Insert \n4 - Display the list \n5 - Search \n6 - sort\n");
+        printf("\n2 - Delete \n3 - Insert \n4 - Display the list \n5 - Search \n6 - sort\n");
         scanf("%d",&k);
 
         switch(k)
         {
-        case 1:
-            printf("\nEnter the data in INT: ");
-            scanf("%d",&j);
-            add(j);
-            break;
         case 2:
             printf("\nEnter the index number to be deleted: ");
             scanf("%d", &j);
@@ -54,7 +59,7 @@ int main()
             insrt(j,i);
             break;
         case 4:
-            printf("0 - Forward\n 1 - Backward: ");
+            printf("0 - Forward \n1 - Backward: ");
             scanf("%d", &j);
             display(j);
             break;
@@ -68,12 +73,12 @@ int main()
             printf("\nFor Ascending - 0 \nFor Descending - 1: ");
             scanf("%d", &j);
             SortList(j);
+            break;
+
         }
 
-        key = getchar();
     }
 
-    getch();
     return 0;
 }
 
@@ -149,13 +154,13 @@ void display(int x)
 {
     if(x == 0)
     {
-        printf("\nPrinting forward : ");
+        printf("Printing forward :\n");
         RecursiveDisp(head,0);
     }
 
     else
     {
-        printf("\nPrinting Reverse: ");
+        printf("Printing Reverse: \n");
         RecursiveDisp(head,1);
     }
 
